@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/famille/:slug", "destination": "/famille.html" },
+    { "source": "/", "destination": "/index.html" }
+  ]
+}
