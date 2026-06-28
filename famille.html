@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Maison Dhikra</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--black:#080808;--gold:#c9a96e;--white:#f5f1ea;--grey:#666;--grey-light:#999}
+body{background:var(--black);color:var(--white);font-family:'Montserrat',sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden}
+#splash{position:fixed;inset:0;z-index:999;background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 1.2s ease,visibility 1.2s ease}
+#splash.gone{opacity:0;visibility:hidden;pointer-events:none}
+.splash-brand{font-family:'Cormorant Garamond',serif;font-size:13px;letter-spacing:0.55em;text-transform:uppercase;color:var(--gold);margin-bottom:40px;animation:fadeIn 1s ease forwards}
+.splash-line{width:1px;height:0;background:var(--gold);animation:growLine 1.2s ease 0.4s forwards}
+@keyframes growLine{to{height:80px}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:center;padding:22px 32px;background:linear-gradient(to bottom,rgba(8,8,8,0.97) 60%,transparent)}
+.brand-name{font-family:'Cormorant Garamond',serif;font-size:12px;letter-spacing:0.45em;text-transform:uppercase;color:var(--gold)}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:110px 28px 80px}
+.family-ar{font-family:'Cormorant Garamond',serif;font-size:clamp(54px,14vw,108px);font-weight:300;font-style:italic;line-height:0.95;margin-bottom:12px;opacity:0;animation:fadeUp 1.2s ease 1.6s forwards}
+.family-fr{font-size:10px;letter-spacing:0.55em;text-transform:uppercase;color:var(--gold);margin-bottom:52px;opacity:0;animation:fadeUp 1s ease 1.9s forwards}
+.hero-divider{width:1px;height:56px;margin:0 auto 52px;background:linear-gradient(to bottom,transparent,var(--gold),transparent);opacity:0;animation:fadeUp 1s ease 2.1s forwards}
+.hero-quote{font-family:'Cormorant Garamond',serif;font-size:clamp(17px,3.5vw,23px);font-style:italic;color:var(--grey-light);max-width:400px;line-height:1.75;opacity:0;animation:fadeUp 1s ease 2.3s forwards}
+.section{padding:72px 24px 80px;max-width:860px;margin:0 auto}
+.section-eyebrow{font-size:9px;letter-spacing:0.5em;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:44px}
+.video-grid{display:grid;gap:3px;grid-template-columns:1fr 1fr;margin-bottom:56px}
+.video-card{position:relative;background:#111;overflow:hidden;cursor:pointer;border:1px solid rgba(201,169,110,0.08);transition:border-color 0.3s}
+.video-card--hero{grid-column:1/-1;aspect-ratio:16/9}
+.video-card--sm{aspect-ratio:4/5}
+.video-thumb{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(25%) brightness(0.85);transition:filter 0.7s,transform 0.7s}
+.video-card:hover .video-thumb{filter:grayscale(0%) brightness(1);transform:scale(1.04)}
+.video-overlay{position:absolute;inset:0;background:linear-gradient(160deg,transparent 30%,rgba(8,8,8,0.75) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:20px}
+.video-label{font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--white);margin-bottom:3px}
+.video-date{font-size:9px;letter-spacing:0.25em;color:var(--gold);text-transform:uppercase}
+.play-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;border:1.5px solid rgba(201,169,110,0.7);display:flex;align-items:center;justify-content:center;background:rgba(8,8,8,0.45);backdrop-filter:blur(6px)}
+.play-ring svg{width:15px;height:15px;fill:var(--gold);margin-left:3px}
+.photo-strip{display:flex;gap:3px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin-bottom:12px}
+.photo-strip::-webkit-scrollbar{display:none}
+.photo-item{flex:0 0 48vw;max-width:220px;height:280px;background:#111;overflow:hidden;scroll-snap-align:start}
+.photo-item img{width:100%;height:100%;object-fit:cover;filter:grayscale(15%);display:block}
+.strip-hint{text-align:center;font-size:9px;letter-spacing:0.3em;color:var(--grey);text-transform:uppercase;margin-bottom:72px}
+.message{text-align:center;padding:0 16px 80px;max-width:520px;margin:0 auto}
+.message-quote{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,5vw,36px);font-style:italic;color:var(--white);line-height:1.35;margin-bottom:28px}
+.message-body{font-size:12px;line-height:2.1;color:var(--grey-light);margin-bottom:36px}
+.divider-v{width:1px;height:48px;margin:0 auto 28px;background:linear-gradient(to bottom,transparent,var(--gold),transparent)}
+.signature{font-family:'Cormorant Garamond',serif;font-size:20px;font-style:italic;color:var(--gold)}
+footer{border-top:1px solid rgba(201,169,110,0.1);padding:36px 24px;text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:0.45em;color:var(--gold);opacity:0.55;text-transform:uppercase}
+.footer-note{font-size:9px;color:var(--grey);opacity:0.5}
+.modal{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,0.95);backdrop-filter:blur(12px);align-items:center;justify-content:center;padding:20px}
+.modal.open{display:flex}
+.modal-inner{width:min(92vw,820px);position:relative}
+.modal-close{position:absolute;top:-44px;right:0;background:none;border:none;color:var(--gold);cursor:pointer;font-size:10px;letter-spacing:0.35em;text-transform:uppercase;font-family:'Montserrat',sans-serif}
+.modal iframe,.modal video{width:100%;aspect-ratio:16/9;border:none;border:1px solid rgba(201,169,110,0.15);background:#000;display:block}
+.not-found{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px}
+.not-found h1{font-family:'Cormorant Garamond',serif;font-size:48px;font-style:italic;color:var(--gold);margin-bottom:16px}
+.not-found p{color:var(--grey);font-size:13px}
+</style>
+</head>
+<body>
+
+<div id="splash">
+  <div class="splash-brand">Maison Dhikra · ذِكرى</div>
+  <div class="splash-line"></div>
+</div>
+
+<header><span class="brand-name">Maison Dhikra · ذِكرى</span></header>
+
+<div id="app"></div>
+
+<div class="modal" id="modal">
+  <div class="modal-inner">
+    <button class="modal-close" onclick="closeModal()">✕ Fermer</button>
+    <div id="modal-media"></div>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://tuwlmktixwqcttfjiej.supabase.co';
+const SUPABASE_KEY = 'eyJhbGci0iJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR1d2xta3RpeHdxY3R0ZmpqZWoiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTc0OTUwMDYyMiwiZXhwIjoyMDY1MDc2NjIyfQ.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR1d2xta3RpeHdxY3R0ZmpqZWoiLCJyb2xlIjoiYW5vbiJ9';
+
+const slug = location.pathname.split('/famille/')[1];
+
+async function load() {
+  if (!slug) { showNotFound(); return; }
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/families?slug=eq.${slug}&select=*`, {
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+    });
+    const data = await res.json();
+    if (!data || data.length === 0) { showNotFound(); return; }
+    render(data[0]);
+  } catch(e) { showNotFound(); }
+}
+
+function render(f) {
+  const videos = f.videos ? f.videos.split(',').filter(Boolean) : [];
+  const photos = f.photos ? f.photos.split(',').filter(Boolean) : [];
+
+  const videoCards = videos.map((v, i) => `
+    <div class="video-card ${i===0 && videos.length>1 ? 'video-card--hero' : 'video-card--sm'}"
+         onclick="openModal('${v.trim()}')" tabindex="0">
+      <div class="play-ring"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      <div class="video-overlay">
+        <div class="video-label">Souvenir ${i+1}</div>
+        <div class="video-date">${f.name_fr || ''}</div>
+      </div>
+    </div>`).join('');
+
+  const photoItems = photos.map(p => `
+    <div class="photo-item"><img src="${p.trim()}" loading="lazy" alt=""/></div>`).join('');
+
+  document.getElementById('app').innerHTML = `
+    <section class="hero">
+      <div class="family-ar">${f.name_ar || f.name_fr}</div>
+      <div class="family-fr">${f.name_fr}</div>
+      <div class="hero-divider"></div>
+      <p class="hero-quote">Chaque image garde une âme.<br/>كل صورة تحمل روحاً.</p>
+    </section>
+
+    ${videos.length > 0 ? `
+    <section class="section">
+      <p class="section-eyebrow">Nos Souvenirs · ذكرياتنا</p>
+      <div class="video-grid">${videoCards}</div>
+    </section>` : ''}
+
+    ${photos.length > 0 ? `
+    <section class="section" style="padding-top:0">
+      <p class="section-eyebrow">Moments · لحظات</p>
+      <div class="photo-strip">${photoItems}</div>
+      <p class="strip-hint">← Glissez pour voir plus →</p>
+    </section>` : ''}
+
+    <section class="message">
+      <h2 class="message-quote">${f.message || 'Ces murs racontent notre histoire.'}</h2>
+      <div class="divider-v"></div>
+      <p class="signature">— ${f.name_fr}</p>
+    </section>
+
+    <footer>
+      <span class="footer-logo">Maison Dhikra · ذِكرى</span>
+      <span class="footer-note">Page privée · هذه الصفحة خاصة بالعائلة</span>
+    </footer>`;
+
+  setTimeout(() => document.getElementById('splash').classList.add('gone'), 2200);
+}
+
+function showNotFound() {
+  document.getElementById('splash').classList.add('gone');
+  document.getElementById('app').innerHTML = `
+    <div class="not-found">
+      <h1>Page introuvable</h1>
+      <p>Cette page famille n'existe pas.</p>
+    </div>`;
+}
+
+function getEmbed(url) {
+  if (url.includes('vimeo.com')) {
+    const id = url.split('/').pop();
+    return `<iframe src="https://player.vimeo.com/video/${id}?autoplay=1" allow="autoplay;fullscreen" allowfullscreen></iframe>`;
+  }
+  if (url.includes('youtube.com') || url.includes('youtu.be')) {
+    const id = url.includes('youtu.be') ? url.split('/').pop() : new URL(url).searchParams.get('v');
+    return `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1" allow="autoplay;fullscreen" allowfullscreen></iframe>`;
+  }
+  return `<video src="${url}" controls autoplay playsinline style="width:100%;aspect-ratio:16/9;background:#000"></video>`;
+}
+
+function openModal(url) {
+  document.getElementById('modal-media').innerHTML = getEmbed(url);
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modal-media').innerHTML = '';
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('modal')) closeModal();
+});
+
+load();
+</script>
+</body>
+</html>
